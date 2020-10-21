@@ -65,6 +65,16 @@ Matrix Matrix::operator+(Matrix mat){
 }
 */
 
+istream& operator >> (istream &input, const Matrix &m){
+
+    for(int i = 0; i < m.rows; i++){
+        for(int j = 0; j <m.cols; j++){
+            input >> m.data[i][j];
+        }
+    } 
+    return input;
+}
+
 ostream& operator << (ostream &output, const Matrix &m){
     for(int i = 0; i <  m.rows; i++){
         for(int j = 0; j < m.cols; j++){
@@ -86,7 +96,20 @@ Matrix::~Matrix(){
 
 
 int main(){
-    Matrix a(2, 2);
+    int in1;
+    int in2;
+    cout << "Input rows: ";
+    cin >> in1;
+    cout << endl;
+    cout << "Input cols: ";
+    cin >> in2;
+    cout << endl;
+
+    Matrix a(in1, in2);
+
+    cout << "input data: ";
+    cin >> a;
+    cout << endl;
     cout << a;
 }
 
