@@ -94,7 +94,7 @@ istream& operator >> (istream &input, const Matrix &m){
 ostream& operator << (ostream &output, const Matrix &m){
     for(int i = 0; i <  m.rows; i++){
         for(int j = 0; j < m.cols; j++){
-            output << m.data[i][j] << ", ";
+            output << m.data[i][j] << " ";
         }
         output << endl;
     }
@@ -155,6 +155,6 @@ int main(){
 
     cout << b << endl;
 
-    
+
 }
 
