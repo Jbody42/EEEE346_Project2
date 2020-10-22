@@ -12,13 +12,14 @@ private:
     
 public:
     Matrix(int, int);
-    //Matrix(const Matrix &m2);
+    Matrix(const Matrix &m2);
     ~Matrix();
     void setData(double * const, const int);
     void print();  
     Matrix operator+(Matrix mat);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
+    Matrix& operator = (const Matrix &m);
 
 };
 
@@ -65,6 +66,21 @@ Matrix Matrix::operator+(Matrix mat){
 }
 */
 
+Matrix::Matrix(const Matrix &m2)
+{
+    this->rows = m2.rows;
+    this->cols = m2.cols;
+    
+    data = new double *[rows];
+    
+    for(int i  = 0; i < rows; i++){
+        data[i] = new double[cols];
+        
+        for(int j = 0; j < cols; j++)
+            data[i][j] = m2.data[i][j];
+    }
+}
+
 istream& operator >> (istream &input, const Matrix &m){
 
     for(int i = 0; i < m.rows; i++){
@@ -84,6 +100,22 @@ ostream& operator << (ostream &output, const Matrix &m){
     }
     return output;
 };
+
+Matrix & Matrix::operator = (const Matrix &m) {
+    rows = m.rows;
+    cols = m.cols;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            data[i][j] = m.data[i][j];
+        }
+    }
+
+    return *this;
+
+}
+
+
 
 Matrix::~Matrix(){
     
@@ -107,9 +139,22 @@ int main(){
 
     Matrix a(in1, in2);
 
-    cout << "input data: ";
+
+    cout << "Input data: ";
     cin >> a;
     cout << endl;
     cout << a;
+
+    Matrix b(in1, in2);
+    cout << "Input data ";
+    cin >> b; 
+    cout << endl;
+    cout << b << endl;
+
+    b = a;
+
+    cout << b << endl;
+
+    
 }
 
