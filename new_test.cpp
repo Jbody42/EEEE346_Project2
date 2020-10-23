@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <assert.h>
 using namespace std;
 
 
@@ -16,7 +17,7 @@ public:
     ~Matrix();
     void setData(double * const, const int);
     void print();  
-    Matrix operator+(Matrix mat);
+    friend Matrix operator+(const Matrix &m1, const Matrix &m2);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
     Matrix& operator = (const Matrix &m);
@@ -41,30 +42,25 @@ Matrix::Matrix(int rows, int cols){
     }
 }
 
-/*
-Matrix Matrix::operator+(Matrix mat){
 
-    if(this->rows != mat.rows || this->cols != mat.cols){
-        "Assert Goes here";
-    }
-    int n = 0;
-    double sum;
-    for (int i = 0; i < this->rows; i++){
+Matrix operator+ (const Matrix &m1, const Matrix &m2){
+
+    assert(m1.rows == m2.rows);
+    assert(m1.cols == m2.cols);
+    int rows1 = m1.rows;
+    int cols1 = m1.cols; 
+
+    double tempData[rows1][cols1];
+    for (int i = 0; i < rows1; i++){
         
-        for(int j = 0; j < this->cols; j++){
-            sum = this->data[i][j]+mat.data[i][j];
-            if(n < this->cols){
-                n++;
-                cout << sum << " ";
-            }
-            else if (n == this->cols){
-                cout << endl;
-                n = 0;
-            }
+        for(int j = 0; j < cols1; j++){
+            tempData[i][j] = m1.data[i][j] + m2.data[i][j];
         }
     }
+
+    return ;
 }
-*/
+
 
 Matrix::Matrix(const Matrix &m2)
 {
@@ -130,23 +126,24 @@ Matrix::~Matrix(){
 int main(){
     int in1;
     int in2;
-    cout << "Input rows: ";
-    cin >> in1;
-    cout << endl;
-    cout << "Input cols: ";
-    cin >> in2;
+    cout << "Input rows: \n";
+    cin >> in1 >> in2;
     cout << endl;
 
     Matrix a(in1, in2);
 
 
-    cout << "Input data: ";
+    cout << "Input data: " << endl;
     cin >> a;
     cout << endl;
     cout << a;
 
+    cout << "Input rows: \n";
+    cin >> in1 >> in2;
+    cout << endl;
+   
     Matrix b(in1, in2);
-    cout << "Input data ";
+    cout << "Input data: " << endl;
     cin >> b; 
     cout << endl;
     cout << b << endl;
