@@ -18,8 +18,8 @@ public:
     void setData(double * const, const int);
     Matrix operator+(Matrix &m1);
     Matrix operator-(const Matrix &m1);
-    void operator+=(const Matrix &m1);
-    void operator-=(const Matrix &m1);
+    Matrix operator+=(const Matrix &m1);
+    Matrix operator-=(const Matrix &m1);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
     Matrix& operator = (const Matrix &m);
@@ -116,7 +116,7 @@ Matrix Matrix::operator+(Matrix &mat){
 
 
 
-void Matrix::operator+=(const Matrix &mat){
+Matrix Matrix::operator+=(const Matrix &mat){
 
     assert(this->rows == mat.rows || this->cols == mat.cols);
     for (int i = 0; i < this->rows; i++){
@@ -126,6 +126,7 @@ void Matrix::operator+=(const Matrix &mat){
             
         }
     }
+    return *this;
 }
 
 
@@ -168,7 +169,7 @@ Matrix Matrix::operator-(const Matrix &m1){
 
 
 
-void Matrix::operator-=(const Matrix &mat){
+Matrix Matrix::operator-=(const Matrix &mat){
 
     assert(this->rows == mat.rows || this->cols == mat.cols);
     for (int i = 0; i < this->rows; i++){
@@ -178,6 +179,7 @@ void Matrix::operator-=(const Matrix &mat){
             
         }
     }
+    return *this;
 }
 
 
@@ -220,6 +222,9 @@ int main(){
 
     cout << a - b << endl;
 
+    cout << a + b << endl;
+
+    cout << a += b;
 
 
 
