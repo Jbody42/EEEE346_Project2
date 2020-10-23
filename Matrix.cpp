@@ -17,7 +17,7 @@ public:
     Matrix operator-(const Matrix &mrhs);
     Matrix operator+=(const Matrix &mrhs);
     Matrix operator-=(const Matrix &mrhs);
-    Matrix operator*(Matrix &mrhs);
+    Matrix operator*(const Matrix &mrhs);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
     Matrix& operator = (const Matrix &m);
@@ -157,6 +157,27 @@ Matrix Matrix::operator-=(const Matrix &mrhs){
     }
     return *this;
 }
+
+
+Matrix Matrix::operator*(const Matrix &mrhs){
+
+    assert(this->cols == mrhs.rows);
+    int x  = rows * cols;
+	Matrix mult_mat(this->rows, mrhs.cols);
+    for (int i = 0; i < this->rows; i++){
+        for(int j = 0; j < mrhs.cols; j++){
+
+            mult_mat.data[i][j] = 0;
+            for(int k = 0; k < this->cols; k++){
+                mult_mat.data[i][j]+= this->data[i][k] * mrhs.data[k][j];
+            }  
+        }
+    }
+
+	return mult_mat;
+
+}
+
 
 
 
