@@ -16,7 +16,7 @@ public:
     Matrix(const Matrix &m2);
     ~Matrix();
     void setData(double * const, const int);
-    Matrix operator+(const Matrix &m1);
+    Matrix operator+(Matrix &m1);
     Matrix operator-(const Matrix &m1);
     Matrix operator+=(const Matrix &m1);
     friend ostream& operator << (ostream &output, const Matrix &data);
@@ -98,20 +98,17 @@ Matrix & Matrix::operator = (const Matrix &m) {
 
 }
 
-Matrix Matrix::operator+(Matrix mat){
+Matrix Matrix::operator+(Matrix &mat){
 
     assert(rows == mat.rows && cols == mat.cols);
-    const int x  = this->rows * this->cols;
-    double* sum = new double[x];
+    Matrix addition_mat(this->rows, this->cols);
     for (int i = 0; i < this->rows; i++){
         
         for(int j = 0; j < this->cols; j++){
-            sum[(i*this->cols)+j] = this->data[i][j]+mat.data[i][j];
+            addition_mat.data[i][j] = this->data[i][j]+mat.data[i][j];
             
         }
     }
-    Matrix addition_mat(this->rows, this->cols);
-    addition_mat, setData(sum, this->rows*this->cols);
     return addition_mat;
 }
 
