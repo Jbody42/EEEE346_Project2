@@ -1,6 +1,4 @@
-#include <iostream>
-#include <stdio.h>
-#include <assert.h>
+#include <Matrix.h>
 using namespace std;
 
 
@@ -13,13 +11,13 @@ private:
     
 public:
     Matrix(int, int);
-    Matrix(const Matrix &m2);
+    Matrix(const Matrix &mrhs);
     ~Matrix();
-    void setData(double * const, const int);
-    Matrix operator+(Matrix &m1);
-    Matrix operator-(const Matrix &m1);
-    Matrix operator+=(const Matrix &m1);
-    Matrix operator-=(const Matrix &m1);
+    Matrix operator+(Matrix &mrhs);
+    Matrix operator-(const Matrix &mrhs);
+    Matrix operator+=(const Matrix &mrhs);
+    Matrix operator-=(const Matrix &mrhs);
+    Matrix operator*(Matrix &mrhs);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
     Matrix& operator = (const Matrix &m);
@@ -49,10 +47,10 @@ Matrix::Matrix(int rows, int cols){
 
 
 
-Matrix::Matrix(const Matrix &m2)
+Matrix::Matrix(const Matrix &mC)
 {
-    rows = m2.rows;
-    cols = m2.cols;
+    rows = mC.rows;
+    cols = mC.cols;
     data = new double*[rows];
     for(int i = 0; i < rows; i++){
         data[i] = new double [cols];
@@ -60,7 +58,7 @@ Matrix::Matrix(const Matrix &m2)
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            data[i][j] = m2.data[i][j];
+            data[i][j] = mC.data[i][j];
         }
     }    
 }
@@ -99,14 +97,14 @@ Matrix & Matrix::operator = (const Matrix &m) {
 
 }
 
-Matrix Matrix::operator+(Matrix &mat){
+Matrix Matrix::operator+(Matrix &mrhs){
 
-    assert(rows == mat.rows && cols == mat.cols);
+    assert(this->rows == mrhs.rows && this->cols == mrhs.cols);
     Matrix addition_mat(this->rows, this->cols);
     for (int i = 0; i < this->rows; i++){
         
         for(int j = 0; j < this->cols; j++){
-            addition_mat.data[i][j] = this->data[i][j]+mat.data[i][j];
+            addition_mat.data[i][j] = this->data[i][j]+mrhs.data[i][j];
             
         }
     }
@@ -114,15 +112,13 @@ Matrix Matrix::operator+(Matrix &mat){
 }
 
 
+Matrix Matrix::operator+=(const Matrix &mrhs){
 
-
-Matrix Matrix::operator+=(const Matrix &mat){
-
-    assert(this->rows == mat.rows || this->cols == mat.cols);
+    assert(this->rows == mrhs.rows || this->cols == mrhs.cols);
     for (int i = 0; i < this->rows; i++){
         
         for(int j = 0; j < this->cols; j++){
-            this->data[i][j]= this->data[i][j]+mat.data[i][j];
+            this->data[i][j]= this->data[i][j]+mrhs.data[i][j];
             
         }
     }
@@ -130,37 +126,17 @@ Matrix Matrix::operator+=(const Matrix &mat){
 }
 
 
+Matrix Matrix::operator-(const Matrix &mrhs){
 
-/*
-Matrix Matrix::operator+(const Matrix &m1){
-
-    assert(rows == m1.rows);
-    assert(cols == m1.cols);
+    assert(rows == mrhs.rows);
+    assert(cols == mrhs.cols);
     Matrix temp(rows, cols);
 
     
     for (int i = 0; i < rows; i++){
         
         for(int j = 0; j < cols; j++){
-            temp.data[i][j] = m1.data[i][j] + data[i][j];
-        }
-    }
-
-    return temp ;
-}
-*/
-
-Matrix Matrix::operator-(const Matrix &m1){
-
-    assert(rows == m1.rows);
-    assert(cols == m1.cols);
-    Matrix temp(rows, cols);
-
-    
-    for (int i = 0; i < rows; i++){
-        
-        for(int j = 0; j < cols; j++){
-            temp.data[i][j] = data[i][j] - m1.data[i][j];
+            temp.data[i][j] = data[i][j] - mrhs.data[i][j];
         }
     }
 
@@ -169,13 +145,13 @@ Matrix Matrix::operator-(const Matrix &m1){
 
 
 
-Matrix Matrix::operator-=(const Matrix &mat){
+Matrix Matrix::operator-=(const Matrix &mrhs){
 
-    assert(this->rows == mat.rows || this->cols == mat.cols);
+    assert(this->rows == mrhs.rows || this->cols == mrhs.cols);
     for (int i = 0; i < this->rows; i++){
         
         for(int j = 0; j < this->cols; j++){
-            this->data[i][j]= this->data[i][j]-mat.data[i][j];
+            this->data[i][j]= this->data[i][j]-mrhs.data[i][j];
             
         }
     }
@@ -195,38 +171,4 @@ Matrix::~Matrix(){
 }
 
 
-int main(){
-    int in1;
-    int in2;
-    cout << "Input rows: \n";
-    cin >> in1 >> in2;
-    cout << endl;
-
-    Matrix a(in1, in2);
-
-
-    cout << "Input data: " << endl;
-    cin >> a;
-    cout << endl;
-    cout << a;
-
-    cout << "Input rows: \n";
-    cin >> in1 >> in2;
-    cout << endl;
-   
-    Matrix b(in1, in2);
-    cout << "Input data: " << endl;
-    cin >> b; 
-    cout << endl;
-    cout << b << endl;
-
-    cout << a - b << endl;
-
-    cout << a + b << endl;
-
-    cout << a += b;
-
-
-
-}
 
