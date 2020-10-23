@@ -19,7 +19,7 @@ public:
     Matrix operator-(const Matrix &mrhs);
     Matrix operator+=(const Matrix &mrhs);
     Matrix operator-=(const Matrix &mrhs);
-    Matrix operator*(Matrix &mrhs);
+    Matrix operator*(const Matrix &mrhs);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
     Matrix& operator = (const Matrix &m);
