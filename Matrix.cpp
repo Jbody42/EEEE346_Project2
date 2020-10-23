@@ -1,29 +1,8 @@
-#include <Matrix.h>
+#include "Matrix.h"
 using namespace std;
 
 
 
-
-class Matrix{
-private:
-    int rows, cols;
-    double **data;
-    
-public:
-    Matrix(int, int);
-    Matrix(const Matrix &mrhs);
-    ~Matrix();
-    Matrix operator+(Matrix &mrhs);
-    Matrix operator-(const Matrix &mrhs);
-    Matrix operator+=(const Matrix &mrhs);
-    Matrix operator-=(const Matrix &mrhs);
-    Matrix operator*(const Matrix &mrhs);
-    friend ostream& operator << (ostream &output, const Matrix &data);
-    friend istream& operator >> (istream &input, const Matrix &data);
-    Matrix& operator = (const Matrix &m);
-
-
-};
 
 
 
@@ -112,7 +91,7 @@ Matrix Matrix::operator+(Matrix &mrhs){
 }
 
 
-Matrix Matrix::operator+=(const Matrix &mrhs){
+Matrix& Matrix::operator+=(const Matrix &mrhs){
 
     assert(this->rows == mrhs.rows || this->cols == mrhs.cols);
     for (int i = 0; i < this->rows; i++){
@@ -126,7 +105,7 @@ Matrix Matrix::operator+=(const Matrix &mrhs){
 }
 
 
-Matrix Matrix::operator-(const Matrix &mrhs){
+Matrix Matrix::operator-(Matrix &mrhs){
 
     assert(rows == mrhs.rows);
     assert(cols == mrhs.cols);
@@ -145,7 +124,7 @@ Matrix Matrix::operator-(const Matrix &mrhs){
 
 
 
-Matrix Matrix::operator-=(const Matrix &mrhs){
+Matrix& Matrix::operator-=(const Matrix &mrhs){
 
     assert(this->rows == mrhs.rows || this->cols == mrhs.cols);
     for (int i = 0; i < this->rows; i++){

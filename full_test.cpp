@@ -2,7 +2,7 @@
 #include "Matrix.h"
 using namespace std;
 
-const bool SHOW_PROMPTS = false;
+const bool SHOW_PROMPTS = true;
 
 int main(void)
 {

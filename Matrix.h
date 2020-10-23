@@ -1,3 +1,5 @@
+#ifndef MATRIX_H
+#define MATRIX_H
 #include <iostream>
 #include <stdio.h>
 #include <assert.h>
@@ -16,9 +18,9 @@ public:
     Matrix(const Matrix &mrhs);
     ~Matrix();
     Matrix operator+(Matrix &mrhs);
-    Matrix operator-(const Matrix &mrhs);
-    Matrix operator+=(const Matrix &mrhs);
-    Matrix operator-=(const Matrix &mrhs);
+    Matrix operator-(Matrix &mrhs);
+    Matrix& operator+=(const Matrix &mrhs);
+    Matrix& operator-=(const Matrix &mrhs);
     Matrix operator*(const Matrix &mrhs);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
@@ -26,3 +28,4 @@ public:
 
 
 };
+#endif
