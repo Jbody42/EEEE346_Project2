@@ -18,7 +18,8 @@ public:
     void setData(double * const, const int);
     Matrix operator+(Matrix &m1);
     Matrix operator-(const Matrix &m1);
-    Matrix operator+=(const Matrix &m1);
+    void operator+=(const Matrix &m1);
+    void operator-=(const Matrix &m1);
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
     Matrix& operator = (const Matrix &m);
@@ -112,6 +113,23 @@ Matrix Matrix::operator+(Matrix &mat){
     return addition_mat;
 }
 
+
+
+
+void Matrix::operator+=(const Matrix &mat){
+
+    assert(this->rows == mat.rows || this->cols == mat.cols);
+    for (int i = 0; i < this->rows; i++){
+        
+        for(int j = 0; j < this->cols; j++){
+            this->data[i][j]= this->data[i][j]+mat.data[i][j];
+            
+        }
+    }
+}
+
+
+
 /*
 Matrix Matrix::operator+(const Matrix &m1){
 
@@ -148,22 +166,21 @@ Matrix Matrix::operator-(const Matrix &m1){
     return temp ;
 }
 
-/*
-Matrix Matrix::operator-(const Matrix &m1){
 
-    //assert(m1.cols == cols);
 
-    
-    for (int i = 0; i < rows; i++){
+void Matrix::operator-=(const Matrix &mat){
+
+    assert(this->rows == mat.rows || this->cols == mat.cols);
+    for (int i = 0; i < this->rows; i++){
         
-        for(int j = 0; j < cols; j++){
-            data[i][j] = data[i][j] + m1.data[i][j];
+        for(int j = 0; j < this->cols; j++){
+            this->data[i][j]= this->data[i][j]-mat.data[i][j];
+            
         }
     }
-
-    return  ;
 }
-*/
+
+
 
 
 Matrix::~Matrix(){
