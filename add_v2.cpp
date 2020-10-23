@@ -45,7 +45,3 @@ Matrix Matrix::operator+(Matrix mat){
     addition_mat, setData(sum, this->rows*this->cols);
 
 }
-
-
-
-

@@ -20,7 +20,7 @@ public:
     ~Matrix();
     void setData(double * const, const int);
     void print();  
-    Matrix operator+(Matrix mat);
+    Matrix operator-=(Matrix mat);
 
 };
 
@@ -29,7 +29,7 @@ public:
 
 
 
-Matrix Matrix::operator+(Matrix mat){
+Matrix Matrix::operator-=(Matrix mat){
 
     assert(this->rows != mat.rows || this->cols != mat.cols);
     int x  = rows * cols;
@@ -37,7 +37,7 @@ Matrix Matrix::operator+(Matrix mat){
     for (int i = 0; i < this->rows; i++){
         
         for(int j = 0; j < this->cols; j++){
-            sum[(i*this->cols)+j] = this->data[i][j]+mat.data[i][j];
+            this->data[i][j]= this->data[i][j]-mat.data[i][j];
             
         }
     }
@@ -45,7 +45,3 @@ Matrix Matrix::operator+(Matrix mat){
     addition_mat, setData(sum, this->rows*this->cols);
 
 }
-
-
-
-
