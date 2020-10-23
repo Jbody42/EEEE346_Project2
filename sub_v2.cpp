@@ -33,7 +33,7 @@ Matrix Matrix::operator-(Matrix mat){
 
     assert(this->rows != mat.rows || this->cols != mat.cols);
     int x  = rows * cols;
-    double diff[x];
+    double* diff = new double[x];
     for (int i = 0; i < this->rows; i++){
         
         for(int j = 0; j < this->cols; j++){

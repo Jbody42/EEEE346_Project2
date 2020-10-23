@@ -32,8 +32,6 @@ public:
 Matrix Matrix::operator-=(Matrix mat){
 
     assert(this->rows != mat.rows || this->cols != mat.cols);
-    int x  = rows * cols;
-    double sum[x];
     for (int i = 0; i < this->rows; i++){
         
         for(int j = 0; j < this->cols; j++){
@@ -41,7 +39,5 @@ Matrix Matrix::operator-=(Matrix mat){
             
         }
     }
-    Matrix addition_mat(this->rows, this->cols);
-    addition_mat, setData(sum, this->rows*this->cols);
 
 }
