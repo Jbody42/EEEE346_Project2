@@ -21,6 +21,10 @@ public:
     friend ostream& operator << (ostream &output, const Matrix &data);
     friend istream& operator >> (istream &input, const Matrix &data);
     Matrix& operator = (const Matrix &m);
+    Matrix operator-=(Matrix mat);
+    Matrix operator+=(Matrix mat);
+    Matrix operator+(Matrix mat);
+    Matrix operator-(Matrix mat);
 
 };
 
@@ -110,6 +114,74 @@ Matrix & Matrix::operator = (const Matrix &m) {
     return *this;
 
 }
+
+Matrix Matrix::operator+=(Matrix mat){
+
+    assert(this->rows != mat.rows || this->cols != mat.cols);
+    for (int i = 0; i < this->rows; i++){
+        
+        for(int j = 0; j < this->cols; j++){
+            this->data[i][j]= this->data[i][j]+mat.data[i][j];
+            
+        }
+    }
+
+}
+
+Matrix Matrix::operator-=(Matrix mat){
+
+    assert(this->rows != mat.rows || this->cols != mat.cols);
+
+    for (int i = 0; i < this->rows; i++){
+        
+        for(int j = 0; j < this->cols; j++){
+            this->data[i][j]= this->data[i][j]-mat.data[i][j];
+            
+        }
+    }
+
+}
+
+
+
+
+
+Matrix Matrix::operator-(Matrix mat){
+
+    assert(this->rows != mat.rows || this->cols != mat.cols);
+    int x  = rows * cols;
+    double* diff = new double[x];
+    for (int i = 0; i < this->rows; i++){
+        
+        for(int j = 0; j < this->cols; j++){
+            diff[(i*this->cols)+j] = this->data[i][j]-mat.data[i][j];
+            
+        }
+    }
+    Matrix addition_mat(this->rows, this->cols);
+    addition_mat, setData(diff, this->rows*this->cols);
+    return addition_mat;
+
+}
+
+Matrix Matrix::operator+(Matrix mat){
+
+    assert(this->rows != mat.rows || this->cols != mat.cols);
+    const int x  = this->rows * this->cols;
+    double* sum = new double[x];
+    for (int i = 0; i < this->rows; i++){
+        
+        for(int j = 0; j < this->cols; j++){
+            sum[(i*this->cols)+j] = this->data[i][j]+mat.data[i][j];
+            
+        }
+    }
+    Matrix addition_mat(this->rows, this->cols);
+    addition_mat, setData(sum, this->rows*this->cols);
+    return addition_mat;
+}
+
+
 
 
 
